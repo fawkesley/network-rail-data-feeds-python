@@ -10,8 +10,11 @@ from pprint import pprint
 
 import logging
 
+HOSTNAME = 'datafeeds.networkrail.co.uk'
+CHANNEL = 'TRAIN_MVT_ALL_TOC'
 
-class MyListener(object):
+
+class TrainMovementsListener(object):
     def on_error(self, headers, message):
         print("ERROR: {} {}".format(headers, message))
 
@@ -30,33 +33,33 @@ class MyListener(object):
         else:
             print("somewhere else ({})".format(stanox))
 
+
 def main():
     logging.basicConfig(level=logging.WARN)
-    hostname = 'datafeeds.networkrail.co.uk'
 
     username = os.environ['NR_DATAFEEDS_USERNAME']
     password = os.environ['NR_DATAFEEDS_PASSWORD']
 
-    channel = 'TRAIN_MVT_ALL_TOC'
+    conn = create_data_feed_connection(HOSTNAME, username, password, CHANNEL)
 
+    while True:
+        try:
+            time.sleep(1)
+        except KeyboardInterrupt:
+            print("Quitting.")
+            break
+
+    conn.disconnect()
+
+
+def create_data_feed_connection(hostname, username, password, channel):
     conn = stomp.Connection(host_and_ports=[(hostname, 61618)])
-    conn.set_listener('mylistener', MyListener())
+    conn.set_listener('mylistener', TrainMovementsListener())
     conn.start()
     conn.connect(username=username, passcode=password)
 
     conn.subscribe(destination='/topic/{}'.format(channel), id=1, ack='auto')
-
-    keep_running = True
-    try:
-        while keep_running:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        print("Quitting.")
-        keep_running = False
-    else:
-        raise
-
-    conn.disconnect()
+    return conn
 
 if __name__ == '__main__':
     main()
