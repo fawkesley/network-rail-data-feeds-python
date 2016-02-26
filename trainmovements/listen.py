@@ -336,18 +336,21 @@ class TrainMovementsMessage(object):
         # return self._decode_???(self.raw['train_file_address'])
 
     @property
+    def minutes_late(self):
+        return int(
+            (self.actual_datetime - self.planned_datetime).total_seconds() / 60
+        )
+
+    @property
     def early_late_description(self):
         if not self.actual_datetime or not self.planned_datetime:
             return '[unknown]'
 
-        mins_late = (
-            self.actual_datetime - self.planned_datetime).total_seconds() / 60
-
         if self.status is VariationStatus.late:
-            return '{} mins late'.format(mins_late)
+            return '{} mins late'.format(self.minutes_late)
 
         elif self.status is VariationStatus.early:
-            return '{} mins early'.format(-mins_late)
+            return '{} mins early'.format(-self.minutes_late)
 
         elif self.status is VariationStatus.on_time:
             return 'on time'
