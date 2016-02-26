@@ -129,7 +129,7 @@ class TrainMovementsMessage(object):
 
     @property
     def event_type(self):
-        EventType.get(self.raw['event_type'])
+        return EventType.get(self.raw['event_type'])
 
     @property
     def status(self):
