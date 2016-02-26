@@ -1,0 +1,41 @@
+{
+    "body": {
+        "variation_status": "LATE", 
+        "planned_timestamp": "1455883470000", 
+        "event_type": "DEPARTURE", 
+        "train_terminated": "false", 
+        "direction_ind": "UP", 
+        "toc_id": "88", 
+        "auto_expected": "true", 
+        "event_source": "AUTOMATIC", 
+        "reporting_stanox": "87701", 
+        "gbtt_timestamp": "1455883440000", 
+        "platform": " 1", 
+        "correction_ind": "false", 
+        "original_loc_stanox": "", 
+        "planned_event_type": "DEPARTURE", 
+        "timetable_variation": "2", 
+        "delay_monitoring_point": "true", 
+        "line_ind": "F", 
+        "next_report_stanox": "87700", 
+        "train_id": "892A39MI19", 
+        "offroute_ind": "false", 
+        "current_train_id": "", 
+        "loc_stanox": "87701", 
+        "next_report_run_time": "1", 
+        "route": "2", 
+        "train_file_address": null, 
+        "division_code": "88", 
+        "actual_timestamp": "1455883560000", 
+        "original_loc_timestamp": "", 
+        "train_service_code": "24745000"
+    }, 
+    "header": {
+        "user_id": "", 
+        "msg_type": "0003", 
+        "msg_queue_timestamp": "1455883630000", 
+        "source_dev_id": "", 
+        "original_data_source": "SMART", 
+        "source_system_id": "TRUST"
+    }
+}
